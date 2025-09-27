@@ -1,0 +1,15 @@
+/* Reset default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Set body font and background */
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+}
+.hero {
+  height: calc(100vh - 90px);
+}
