@@ -1,7 +1,7 @@
 /* src/components/BackgroundSection.css */
 .parallax {
   height: 100vh;
-  background-image: "/bg1.jpg"; /* Image from public folder */
+  background-image: url("/bg1.jpg"); /* ✅ wrap with url() */
   background-attachment: fixed; /* Parallax effect */
   background-position: center;
   background-repeat: no-repeat;

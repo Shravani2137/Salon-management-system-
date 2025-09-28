@@ -1,14 +1,22 @@
-import React from "react";
+import { useEffect, useState } from "react";
 
-function ParallaxSection({ bgImage, title, subtitle }) {
+function ParallaxSection({ title, subtitle }) {
+  const [offsetY, setOffsetY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => setOffsetY(window.scrollY * 0.5);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <section
       style={{
         height: "100vh",
-        backgroundImage: "/image2.jpg",
+        backgroundImage: "url(/bg1.jpg)",
         backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed", // parallax
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: `center ${offsetY}px`,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -17,6 +25,7 @@ function ParallaxSection({ bgImage, title, subtitle }) {
         textAlign: "center",
         textShadow: "2px 2px 10px rgba(0,0,0,0.7)",
         padding: "0 20px",
+        transition: "background-position 0.1s", // smooth movement
       }}
     >
       <h1 style={{ fontSize: "3rem", marginBottom: "10px" }}>{title}</h1>

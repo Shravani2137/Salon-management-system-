@@ -5,45 +5,62 @@ function About() {
   return (
     <section
       style={{
+        backgroundColor: "#fdf6f9",
+        padding: "80px 10%",
         display: "flex",
+        flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        padding: "60px 10%",
-        backgroundColor: "#faf8f6", // light pastel background
+        gap: "40px",
       }}
     >
-      {/* Left: Text */}
-      <div style={{ flex: 1, paddingRight: "40px" }}>
-        <h2 style={{ fontSize: "2.5rem", marginBottom: "20px" }}>
-          Indulge in the Extraordinary
+      {/* Left: Text Content */}
+      <div style={{ flex: 1 }}>
+        <h2 style={{ fontSize: "2.8rem", color: "#6a0dad", marginBottom: "25px" }}>
+          Where Beauty Meets Excellence
         </h2>
-        <p style={{ fontSize: "1.1rem", lineHeight: "1.6", marginBottom: "30px" }}>
-          JUICE is one of India’s trendiest salon chains with 40+ branches
-          across India, with a widespread presence across metros and mini-metros
-          catering to the beauty needs of ardent fashion followers, trendsetters,
-          and celebrities. Being in existence for almost two decades, JUICE has
-          become a leader and benchmark in the hair, beauty, and nail care industry.
+        <p style={{ fontSize: "1.1rem", lineHeight: "1.7", color: "#333", marginBottom: "30px" }}>
+          Discover a sanctuary where creativity and style come together. Our talented team of
+          professionals is committed to delivering personalized hair, skin, and beauty services,
+          ensuring you leave feeling confident and refreshed. Every visit is an opportunity to
+          indulge in care, precision, and luxury.
         </p>
         <button
           style={{
-            padding: "12px 24px",
+            padding: "12px 28px",
             fontSize: "1rem",
+            color: "#6a0dad",
+            border: "2px solid #6a0dad",
             borderRadius: "5px",
-            border: "2px solid black",
             background: "transparent",
             cursor: "pointer",
+            transition: "all 0.3s",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = "#6a0dad";
+            e.currentTarget.style.color = "#fff";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "transparent";
+            e.currentTarget.style.color = "#6a0dad";
           }}
         >
-          DISCOVER MORE
+          LEARN MORE
         </button>
       </div>
 
       {/* Right: Image */}
       <div style={{ flex: 1 }}>
         <img
-          src="/bg3.jpg" // put an image in public/about.jpg
-          alt="Salon model"
-          style={{ width: "100%", borderRadius: "10px" }}
+          src="/.jpg" // replace with your actual image
+          alt="Salon ambiance"
+          style={{
+            width: "100%",
+            height: "400px",
+            objectFit: "cover",
+            borderRadius: "15px",
+            boxShadow: "0 10px 30px rgba(106,13,173,0.15)",
+          }}
         />
       </div>
     </section>

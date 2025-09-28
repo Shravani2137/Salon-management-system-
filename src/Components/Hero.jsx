@@ -1,70 +1,120 @@
 // src/components/Hero.jsx
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
-function Hero() {
+function Hero({ openBooking }) {
   const [currentImage, setCurrentImage] = useState(0);
 
-  // Array of images (from public folder)
   const images = ["/image1.jpg", "/image2.jpg", "/image3.jpg", "/image4.jpg"];
 
-  // Change image every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % images.length);
     }, 5000);
 
-    // Cleanup
     return () => clearInterval(interval);
   }, []);
 
   return (
     <section
       style={{
-        height: "70vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundImage: `url(${images[currentImage]})`, // dynamic background
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        color: "#fff",
-        textAlign: "center",
-        transition: "background-image 1s ease-in-out",
+        height: "100vh",
+        width: "100%",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
+      {/* Background image with parallax effect */}
       <div
         style={{
-          backgroundColor: "rgba(0,0,0,0.35)",
-          padding: "30px",
-          borderRadius: "10px",
-          maxWidth: "900px",
+          position: "absolute",
+          top: 0,
+          left: 0,
           width: "100%",
+          height: "100%",
+          backgroundImage: `url(${images[currentImage]})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          filter: "brightness(0.6)",
+          transition: "background-image 1.2s ease-in-out",
+          zIndex: 1,
+        }}
+      />
+
+      {/* Overlay content */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 2,
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          textAlign: "center",
+          color: "#fff",
+          padding: "0 20px",
         }}
       >
-        <h1 style={{ fontSize: "3rem", marginBottom: "12px" }}>
-          Look Good. Feel Good. Be Confident.
+        <h1
+          style={{
+            fontSize: "3rem",
+            fontWeight: "700",
+            marginBottom: "15px",
+            textShadow: "2px 2px 15px rgba(0,0,0,0.5)",
+            animation: "fadeIn 1.5s ease-in-out",
+          }}
+        >
+          Look Good. Feel Confident.
         </h1>
-        <p style={{ fontSize: "1.2rem", marginBottom: "20px" }}>
-          Discover professional care that brings out your best self.
+        <p
+          style={{
+            fontSize: "1.3rem",
+            marginBottom: "30px",
+            maxWidth: "600px",
+            lineHeight: "1.6",
+            textShadow: "1px 1px 8px rgba(0,0,0,0.4)",
+            animation: "fadeIn 2s ease-in-out",
+          }}
+        >
+          Professional care and personalized beauty treatments to bring out your best self.
         </p>
 
-        <Link
-          to="/booking"
+        <button
+          onClick={openBooking}
           style={{
-            padding: "12px 22px",
+            padding: "14px 30px",
             fontSize: "1rem",
-            borderRadius: "8px",
-            textDecoration: "none",
-            background: "#ff7f50",
+            borderRadius: "50px",
+            background: "linear-gradient(90deg, #6a0dad, #ff7f50)",
             color: "#fff",
-            display: "inline-block",
-            transition: "0.3s ease",
+            border: "none",
+            cursor: "pointer",
+            fontWeight: "bold",
+            boxShadow: "0 8px 20px rgba(106,13,173,0.4)",
+            transition: "all 0.3s ease",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "scale(1.05)";
+            e.currentTarget.style.boxShadow = "0 12px 25px rgba(106,13,173,0.6)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "scale(1)";
+            e.currentTarget.style.boxShadow = "0 8px 20px rgba(106,13,173,0.4)";
           }}
         >
           Book Now
-        </Link>
+        </button>
       </div>
+
+      {/* Optional: Fade-in keyframes */}
+      <style>
+        {`
+          @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+          }
+        `}
+      </style>
     </section>
   );
 }
