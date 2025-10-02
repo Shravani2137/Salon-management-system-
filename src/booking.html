@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Book a Service</title>
+</head>
+<body>
+<h1>Book a Service</h1>
+<form id="bookingForm">
+  <input type="text" name="name" placeholder="Name" required><br>
+  <input type="email" name="email" placeholder="Email" required><br>
+  <input type="text" name="phone" placeholder="Phone" required><br>
+  <input type="date" name="date" required><br>
+  <input type="time" name="time" required><br>
+  <input type="text" name="service" placeholder="Service" required><br>
+  <textarea name="notes" placeholder="Notes"></textarea><br>
+  <button type="submit">Book</button>
+</form>
+
+<script>
+const form = document.getElementById('bookingForm');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const data = Object.fromEntries(new FormData(form).entries());
+
+  const res = await fetch('http://localhost:5000/bookings', {
+    method: 'POST',               // POST = create a new booking
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)    // send user input as JSON
+  });
+
+  const result = await res.json();
+  alert(result.message);          // show confirmation
+  form.reset();                   // clear the form
+});
+</script>
+</body>
+</html>

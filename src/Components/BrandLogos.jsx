@@ -8,7 +8,7 @@ function BrandLogos() {
     { name: "Schwarzkopf", img: "/schwarzkopf.jpg" },
     { name: "Lakmé", img: "/lakme.jpg" },
     { name: "OPI", img: "/opi.jpg" },
-  ]; // replace with actual image paths
+  ];
 
   return (
     <section
@@ -16,7 +16,7 @@ function BrandLogos() {
         padding: "80px 10%",
         background: "linear-gradient(90deg, #f3e5f5 0%, #fff 100%)",
         borderRadius: "20px",
-        boxShadow: "0 10px 40px rgba(106,13,173,0.15)",
+        boxShadow: "0 20px 70px rgba(106,13,173,0.15)",
         margin: "50px 0",
       }}
     >
@@ -34,11 +34,11 @@ function BrandLogos() {
 
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
-          gap: "40px",
-          justifyItems: "center",
+          display: "flex",
+          justifyContent: "space-around", // spreads logos evenly
           alignItems: "center",
+          flexWrap: "nowrap", // keeps all in one line
+          gap: "40px",
         }}
       >
         {logos.map((brand, index) => (
@@ -47,7 +47,7 @@ function BrandLogos() {
               src={brand.img}
               alt={brand.name}
               style={{
-                height: "80px",
+                height: "120px", // bigger logo size
                 objectFit: "contain",
                 transition: "transform 0.3s, filter 0.3s, box-shadow 0.3s",
                 cursor: "pointer",

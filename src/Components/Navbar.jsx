@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
+import React from "react";
 
-function Navbar() {
+function Navbar({ openBooking }) {
   const buttonStyle = {
     background: "transparent",
     border: "2px solid white",
@@ -25,14 +25,9 @@ function Navbar() {
     e.target.style.color = "white";
   };
 
-  // Scroll handlers
-  const scrollToServices = () => {
-    const element = document.getElementById("services");
-    if (element) element.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const scrollToContact = () => {
-    const element = document.getElementById("contact");
+  // Smooth scroll handler
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -43,12 +38,12 @@ function Navbar() {
         top: 0,
         left: 0,
         width: "100%",
-        background: "#6a0dad",
+        background: "#9353c3ff",
         padding: "15px 40px",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+        boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
         zIndex: 1000,
       }}
     >
@@ -70,6 +65,7 @@ function Navbar() {
           padding: 0,
         }}
       >
+        {/* Home */}
         <li>
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
@@ -80,9 +76,11 @@ function Navbar() {
             Home
           </button>
         </li>
+
+        {/* Services */}
         <li>
           <button
-            onClick={scrollToServices}
+            onClick={() => scrollToSection("services")}
             style={buttonStyle}
             onMouseOver={handleMouseOver}
             onMouseOut={handleMouseOut}
@@ -90,19 +88,23 @@ function Navbar() {
             Services
           </button>
         </li>
+
+        {/* Staff */}
         <li>
-          <Link
-            to="/staff"
+          <button
+            onClick={() => scrollToSection("staff")}
             style={buttonStyle}
             onMouseOver={handleMouseOver}
             onMouseOut={handleMouseOut}
           >
             Staff
-          </Link>
+          </button>
         </li>
+
+        {/* Booking - opens booking form from Home */}
         <li>
           <button
-            onClick={scrollToContact}
+            onClick={openBooking}  // 🔹 added this
             style={buttonStyle}
             onMouseOver={handleMouseOver}
             onMouseOut={handleMouseOut}
@@ -110,15 +112,17 @@ function Navbar() {
             Booking
           </button>
         </li>
+
+        {/* Contact */}
         <li>
-          <Link
-            to="/contact"
+          <button
+            onClick={() => scrollToSection("contact")}
             style={buttonStyle}
             onMouseOver={handleMouseOver}
             onMouseOut={handleMouseOut}
           >
             Contact
-          </Link>
+          </button>
         </li>
       </ul>
     </nav>

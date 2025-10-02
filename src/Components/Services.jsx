@@ -30,14 +30,17 @@ function Services() {
   ];
 
   return (
-    <section style={{ padding: "60px 10%", backgroundColor: "#f3e5f5" }}> {/* soft purple background */}
+    <section
+      id="services"   // 🔹 added this line
+      style={{ padding: "60px 10%", backgroundColor: "#f3e5f5" }}
+    >
       {/* Heading */}
       <h2
         style={{
           textAlign: "center",
           fontSize: "2.2rem",
           marginBottom: "40px",
-          color: "#040305ff", // purple heading
+          color: "#040305ff",
         }}
       >
         Our Services
@@ -66,11 +69,13 @@ function Services() {
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "scale(1.05)";
-              e.currentTarget.style.boxShadow = "0 8px 20px rgba(1, 1, 1, 0.4)";
+              e.currentTarget.style.boxShadow =
+                "0 8px 20px rgba(1, 1, 1, 0.4)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "scale(1)";
-              e.currentTarget.style.boxShadow = "0 4px 15px rgba(0,0,0,0.1)";
+              e.currentTarget.style.boxShadow =
+                "0 4px 15px rgba(0,0,0,0.1)";
             }}
           >
             <img
@@ -79,7 +84,9 @@ function Services() {
               style={{ width: "100%", height: "150px", objectFit: "cover" }}
             />
             <div style={{ padding: "15px" }}>
-              <h3 style={{ marginBottom: "10px", color: "#060506ff" }}>{service.title}</h3>
+              <h3 style={{ marginBottom: "10px", color: "#060506ff" }}>
+                {service.title}
+              </h3>
               <p style={{ fontSize: "0.9rem", color: "#050405ff" }}>
                 {service.description}
               </p>

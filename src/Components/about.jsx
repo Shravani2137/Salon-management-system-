@@ -52,7 +52,7 @@ function About() {
       {/* Right: Image */}
       <div style={{ flex: 1 }}>
         <img
-          src="/.jpg" // replace with your actual image
+          src="/image2.jpg" // replace with your actual image
           alt="Salon ambiance"
           style={{
             width: "100%",

@@ -18,14 +18,15 @@ function App() {
 
   return (
     <>
-      <Navbar />
+      {/* Pass openBooking to Navbar */}
+      <Navbar openBooking={openBooking} />
 
       <div style={{ marginTop: "80px" }}>
         <Hero openBooking={openBooking} />
         <Indulge />
         <BrandLogos />
         <Services id="services" /> {/* Added id for anchor scroll */}
-        <Staff />
+        <Staff id="staff" /> {/* Added id for staff scroll */}
         <BackgroundSection />
         <About />
 
