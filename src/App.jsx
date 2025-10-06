@@ -121,6 +121,8 @@ function App() {
       </div>
 
       <Footer />
+
+      {/* BookingForm modal */}
       {showBooking && <BookingForm onClose={closeBooking} />}
     </>
   );
