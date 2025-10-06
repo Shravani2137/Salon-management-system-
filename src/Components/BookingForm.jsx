@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../firebase";
-import { collection, addDoc, getDocs, serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, getDocs, serverTimestamp, query, where } from "firebase/firestore";
 
 export default function BookingForm({ onClose }) {
   const services = ["Hair", "Cosmetology", "Make-Up", "Nails"];
@@ -18,18 +18,24 @@ export default function BookingForm({ onClose }) {
   const [time, setTime] = useState("");
   const [slots, setSlots] = useState(initialSlots);
 
-  // Fetch booked slots for selected date
+  // Update available slots based on booked appointments
   useEffect(() => {
     if (!date) return;
 
     const fetchBooked = async () => {
-      const snapshot = await getDocs(collection(db, "appointments"));
-      const bookedTimes = snapshot.docs
-        .map(doc => doc.data())
-        .filter(a => a.date === date)
-        .map(a => a.time);
+      const q = query(collection(db, "appointments"), where("date", "==", date));
+      const snapshot = await getDocs(q);
+      const bookedCounts = {};
 
-      setSlots(initialSlots.map(s => bookedTimes.includes(s) ? null : s));
+      snapshot.docs.forEach(doc => {
+        const t = doc.data().time;
+        bookedCounts[t] = (bookedCounts[t] || 0) + 1;
+      });
+
+      setSlots(initialSlots.map(s => {
+        // Only show slot if booked less than 2 times
+        return bookedCounts[s] >= 2 ? null : s;
+      }));
     };
 
     fetchBooked();
@@ -43,9 +49,28 @@ export default function BookingForm({ onClose }) {
     }
 
     try {
+      // Check again before adding to prevent race condition
+      const q = query(
+        collection(db, "appointments"),
+        where("date", "==", date),
+        where("time", "==", time)
+      );
+      const snapshot = await getDocs(q);
+      if (snapshot.size >= 2) {
+        alert("Sorry, this time slot is full. Please choose another.");
+        return;
+      }
+
       await addDoc(collection(db, "appointments"), {
-        name, email, phone, service, date, time, createdAt: serverTimestamp()
+        name,
+        email,
+        phone,
+        service,
+        date,
+        time,
+        createdAt: serverTimestamp()
       });
+
       alert("Booking successful!");
       onClose();
     } catch (err) {

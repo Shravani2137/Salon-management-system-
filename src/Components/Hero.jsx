@@ -1,9 +1,7 @@
-// src/components/Hero.jsx
 import React, { useState, useEffect } from "react";
 
 function Hero({ openBooking }) {
   const [currentImage, setCurrentImage] = useState(0);
-
   const images = ["/image1.jpg", "/image2.jpg", "/image3.jpg", "/image4.jpg"];
 
   useEffect(() => {
@@ -17,13 +15,14 @@ function Hero({ openBooking }) {
   return (
     <section
       style={{
-        height: "100vh",
+        height: "calc(100vh - 60px)", // subtract navbar height (approx 60px)
         width: "100%",
         position: "relative",
         overflow: "hidden",
+        paddingTop: "0px", // remove extra top padding
       }}
     >
-      {/* Background image with parallax effect */}
+      {/* Background image */}
       <div
         style={{
           position: "absolute",
@@ -106,7 +105,6 @@ function Hero({ openBooking }) {
         </button>
       </div>
 
-      {/* Optional: Fade-in keyframes */}
       <style>
         {`
           @keyframes fadeIn {

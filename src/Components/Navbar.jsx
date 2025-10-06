@@ -3,13 +3,13 @@ import React from "react";
 function Navbar({ openBooking }) {
   const buttonStyle = {
     background: "transparent",
-    border: "2px solid white",
+    border: "none", // removed white border
     borderRadius: "5px",
     color: "white",
     fontWeight: "bold",
     cursor: "pointer",
     fontSize: "1rem",
-    padding: "5px 12px",
+    padding: "5px 10px", // slightly smaller padding
     transition: "0.3s",
     textDecoration: "none",
     display: "inline-block",
@@ -25,7 +25,6 @@ function Navbar({ openBooking }) {
     e.target.style.color = "white";
   };
 
-  // Smooth scroll handler
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) element.scrollIntoView({ behavior: "smooth" });
@@ -39,7 +38,7 @@ function Navbar({ openBooking }) {
         left: 0,
         width: "100%",
         background: "#9353c3ff",
-        padding: "15px 40px",
+        padding: "10px 30px", // reduced navbar height
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
@@ -47,83 +46,47 @@ function Navbar({ openBooking }) {
         zIndex: 1000,
       }}
     >
-      <h1 style={{ margin: 0 }}>
-        <span
-          style={{ color: "white", cursor: "pointer" }}
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        >
-          LOOKS SALON
-        </span>
-      </h1>
+      {/* Logo + Title */}
+      <div
+        style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      >
+        <img
+          src="/1.png"
+          alt="Looks Salon Logo"
+          style={{ width: "45px", height: "45px", marginRight: "10px" }} // smaller logo
+        />
+        <h1 style={{ color: "white", margin: 0, fontSize: "1.5rem" }}>LOOKS SALON</h1>
+      </div>
 
+      {/* Navigation buttons */}
       <ul
         style={{
           display: "flex",
           listStyle: "none",
-          gap: "25px",
+          gap: "20px", // slightly smaller gap
           margin: 0,
           padding: 0,
         }}
       >
-        {/* Home */}
-        <li>
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            style={buttonStyle}
-            onMouseOver={handleMouseOver}
-            onMouseOut={handleMouseOut}
-          >
-            Home
-          </button>
-        </li>
-
-        {/* Services */}
-        <li>
-          <button
-            onClick={() => scrollToSection("services")}
-            style={buttonStyle}
-            onMouseOver={handleMouseOver}
-            onMouseOut={handleMouseOut}
-          >
-            Services
-          </button>
-        </li>
-
-        {/* Staff */}
-        <li>
-          <button
-            onClick={() => scrollToSection("staff")}
-            style={buttonStyle}
-            onMouseOver={handleMouseOver}
-            onMouseOut={handleMouseOut}
-          >
-            Staff
-          </button>
-        </li>
-
-        {/* Booking - opens booking form from Home */}
-        <li>
-          <button
-            onClick={openBooking}  // 🔹 added this
-            style={buttonStyle}
-            onMouseOver={handleMouseOver}
-            onMouseOut={handleMouseOut}
-          >
-            Booking
-          </button>
-        </li>
-
-        {/* Contact */}
-        <li>
-          <button
-            onClick={() => scrollToSection("contact")}
-            style={buttonStyle}
-            onMouseOver={handleMouseOver}
-            onMouseOut={handleMouseOut}
-          >
-            Contact
-          </button>
-        </li>
+        {["Home", "Services", "Staff", "Booking", "Contact"].map((item) => (
+          <li key={item}>
+            <button
+              onClick={
+                item === "Home"
+                  ? () => window.scrollTo({ top: 0, behavior: "smooth" })
+                  : item === "Booking"
+                  ? openBooking
+                  : () => scrollToSection(item.toLowerCase())
+              }
+              style={buttonStyle}
+              onMouseOver={handleMouseOver}
+              onMouseOut={handleMouseOut}
+            >
+              {item}
+            </button>
+          </li>
+        ))}
       </ul>
     </nav>
   );

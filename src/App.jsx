@@ -9,6 +9,7 @@ import BackgroundSection from "./Components/BackgroundSection";
 import About from "./Components/about";
 import Footer from "./Components/footer";
 import BookingForm from "./Components/BookingForm";
+import Feedback from "./Components/Feedback";
 
 function App() {
   const [showBooking, setShowBooking] = useState(false);
@@ -119,9 +120,10 @@ function App() {
           </div>
         </section>
       </div>
-
+      <Feedback />
+      
       <Footer />
-
+      
       {/* BookingForm modal */}
       {showBooking && <BookingForm onClose={closeBooking} />}
     </>

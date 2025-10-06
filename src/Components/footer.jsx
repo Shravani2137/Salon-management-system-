@@ -27,19 +27,19 @@ function Footer() {
         {/* Social Links */}
         <div style={{ display: "flex", gap: "15px" }}>
           <a
-            href="#"
+            href="#https://r.search.yahoo.com/_ylt=AwrKDbwRLORoOQIA_9K7HAx.;_ylu=Y29sbwNzZzMEcG9zAzEEdnRpZAMEc2VjA3Ny/RV=2/RE=1760993553/RO=10/RU=https%3a%2f%2fwww.facebook.com%2flakme%2f/RK=2/RS=C0QGMibPtkdsYu3sBVIKUZb8MSg-"
             style={{ color: "#ccc", textDecoration: "none", fontSize: "1.2rem" }}
           >
             Facebook
           </a>
           <a
-            href="#"
+            href="#https://r.search.yahoo.com/_ylt=Awr1TmhgLORoGgIAN6C7HAx.;_ylu=Y29sbwNzZzMEcG9zAzEEdnRpZAMEc2VjA3Ny/RV=2/RE=1760993633/RO=10/RU=https%3a%2f%2fwww.instagram.com%2fthehealingcolours%2f/RK=2/RS=yIP9Sc.Nma7gltwDlVQTu_m0xQg-"
             style={{ color: "#ccc", textDecoration: "none", fontSize: "1.2rem" }}
           >
             Instagram
           </a>
           <a
-            href="#"
+            href="https://r.search.yahoo.com/_ylt=AwrKDbynLORoLAIAb.q7HAx.;_ylu=Y29sbwNzZzMEcG9zAzEEdnRpZAMEc2VjA3Ny/RV=2/RE=1760993703/RO=10/RU=https%3a%2f%2ftwitter.com%2fILoveLakme/RK=2/RS=doGwPBOvH6VjBjRe4QH87Hl0xNs-"
             style={{ color: "#ccc", textDecoration: "none", fontSize: "1.2rem" }}
           >
             Twitter
