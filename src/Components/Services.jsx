@@ -6,7 +6,7 @@ function Services() {
       title: "Hair",
       description:
         "Hair stylists at JUICE believe that beauty is different for every person which is why they do not mass produce but tailor-make a look, keeping in mind an individual's features when conceiving their cut and colour.",
-      img: "/image3.jpg",
+      img: "/hair.jpg",
       details: [
         { name: "Haircut", price: "₹500" },
         { name: "Hair Color", price: "₹1200" },

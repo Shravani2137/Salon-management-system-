@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+
 import Navbar from "./Components/Navbar";
 import Hero from "./Components/Hero";
 import Indulge from "./Components/Indulge";
@@ -6,28 +8,31 @@ import BrandLogos from "./Components/BrandLogos";
 import Services from "./Components/Services";
 import Staff from "./Components/Staff";
 import BackgroundSection from "./Components/BackgroundSection";
-import About from "./Components/about";
-import Footer from "./Components/footer";
+import About from "./Components/About";
+import Footer from "./Components/Footer";
 import BookingForm from "./Components/BookingForm";
 import Feedback from "./Components/Feedback";
 
-function App() {
+import AdminLogin from "./Components/AdminLogin";
+import AdminDashboard from "./Components/AdminDashboard";
+
+const App = () => {
   const [showBooking, setShowBooking] = useState(false);
 
   const openBooking = () => setShowBooking(true);
   const closeBooking = () => setShowBooking(false);
 
-  return (
-    <>
-      {/* Pass openBooking to Navbar */}
-      <Navbar openBooking={openBooking} />
+  const isAdminLoggedIn = localStorage.getItem("adminLoggedIn") === "true";
 
+  const Home = () => (
+    <>
+      <Navbar openBooking={openBooking} />
       <div style={{ marginTop: "80px" }}>
         <Hero openBooking={openBooking} />
         <Indulge />
         <BrandLogos />
-        <Services id="services" /> {/* Added id for anchor scroll */}
-        <Staff id="staff" /> {/* Added id for staff scroll */}
+        <Services id="services" />
+        <Staff id="staff" />
         <BackgroundSection />
         <About />
 
@@ -39,7 +44,6 @@ function App() {
           <h2 style={{ fontSize: "2.5rem", textAlign: "center", marginBottom: "50px" }}>
             Contact Us
           </h2>
-
           <div
             style={{
               display: "grid",
@@ -48,6 +52,7 @@ function App() {
               textAlign: "center",
             }}
           >
+            {/* Head Office */}
             <div
               style={{
                 background: "#fff",
@@ -64,6 +69,7 @@ function App() {
               <p>✉ customerservice@lookssalon.net</p>
             </div>
 
+            {/* Online Support */}
             <div
               style={{
                 background: "#fff",
@@ -79,6 +85,7 @@ function App() {
               <p>Customer Care: +91 98765 43210</p>
             </div>
 
+            {/* Stay Connected */}
             <div
               style={{
                 background: "#fff",
@@ -121,13 +128,22 @@ function App() {
         </section>
       </div>
       <Feedback />
-      
       <Footer />
-      
-      {/* BookingForm modal */}
       {showBooking && <BookingForm onClose={closeBooking} />}
     </>
   );
-}
+
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/admin/login" element={<AdminLogin />} />
+      <Route
+        path="/admin/dashboard"
+        element={isAdminLoggedIn ? <AdminDashboard /> : <Navigate to="/admin/login" />}
+      />
+      <Route path="*" element={<Navigate to="/" />} />
+    </Routes>
+  );
+};
 
 export default App;

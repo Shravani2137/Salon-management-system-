@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 function Hero({ openBooking }) {
   const [currentImage, setCurrentImage] = useState(0);
-  const images = ["/image1.jpg", "/image2.jpg", "/image3.jpg", "/image4.jpg"];
+  const images = ["/image1.jpg", "/image2.jpg", "/image4.jpg", "/hair.jpg"];
 
   useEffect(() => {
     const interval = setInterval(() => {
