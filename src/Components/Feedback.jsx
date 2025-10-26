@@ -1,51 +1,63 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { db } from "../firebase";
+import { collection, addDoc, getDocs, query, orderBy } from "firebase/firestore";
 import "./FeedbackSection.css";
 
 const FeedbackSection = () => {
-  const feedbacks = [
-    {
-      name: "Aarav Mehta",
-      role: "Regular Client",
-      feedback:
-        "Amazing salon! The staff is friendly, and the services are top-notch. I always leave feeling refreshed.",
-      color: "#4CAF50",
-    },
-    {
-      name: "Priya Sharma",
-      role: "First-Time Visitor",
-      feedback:
-        "Loved the ambiance and professional service. Highly recommend to anyone looking for a great experience!",
-      color: "#2196F3",
-    },
-    {
-      name: "Rohan Patel",
-      role: "Loyal Customer",
-      feedback:
-        "Booking is smooth, and stylists are very talented. My go-to place for haircuts and grooming.",
-      color: "#FF9800",
-    },
-  ];
-
+  const [feedbacks, setFeedbacks] = useState([]); // Store all feedbacks from Firebase
   const [userFeedback, setUserFeedback] = useState("");
   const [rating, setRating] = useState(0);
   const [showMessage, setShowMessage] = useState(false);
+
+  const feedbackCollection = collection(db, "feedbacks"); // Firestore collection name
+
+  // Fetch feedbacks from Firebase
+  const fetchFeedbacks = async () => {
+    const q = query(feedbackCollection, orderBy("createdAt", "desc"));
+    const querySnapshot = await getDocs(q);
+    const feedbackList = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    setFeedbacks(feedbackList);
+  };
+
+  useEffect(() => {
+    fetchFeedbacks();
+  }, []);
 
   const handleRating = (value) => {
     setRating(value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (userFeedback.trim() === "" || rating === 0) {
       alert("Please give both feedback and rating ⭐");
       return;
     }
-    setShowMessage(true);
-    setUserFeedback("");
-    setRating(0);
 
-    setTimeout(() => {
-      setShowMessage(false);
-    }, 2000);
+    try {
+      // Add feedback to Firebase
+      await addDoc(feedbackCollection, {
+        name: "Anonymous", // You can replace with logged-in user name
+        feedback: userFeedback,
+        rating: rating,
+        createdAt: new Date(),
+      });
+
+      setShowMessage(true);
+      setUserFeedback("");
+      setRating(0);
+
+      // Refresh feedback list
+      fetchFeedbacks();
+
+      setTimeout(() => {
+        setShowMessage(false);
+      }, 2000);
+    } catch (error) {
+      console.error("Error adding feedback: ", error);
+    }
   };
 
   return (
@@ -62,13 +74,13 @@ const FeedbackSection = () => {
           <div className="feedback-card" key={index}>
             <div
               className="quote-circle"
-              style={{ backgroundColor: item.color }}
+              style={{ backgroundColor: "#FF9800" }}
             >
               “
             </div>
             <p className="feedback-text">{item.feedback}</p>
             <h3 className="client-name">{item.name}</h3>
-            <p className="client-role">{item.role}</p>
+            <p className="client-role">Rating: {item.rating} ⭐</p>
           </div>
         ))}
       </div>
